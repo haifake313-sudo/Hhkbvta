@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Fire Esports & Tournament Platform</title>
+  <style>
+    :root {
+      --bg-primary: #0b0f19;
+      --bg-card: #161e2e;
+      --accent: #ff3366;
+      --accent-hover: #e62e5c;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      padding-bottom: 60px;
+    }
+
+    /* Navbar */
+    header {
+      background: #111827;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--accent);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .wallet-badge {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid var(--warning);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: var(--warning);
+      font-size: 0.9rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 12px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      padding: 18px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      border: 1px solid #1f293d;
+    }
+    h2 {
+      margin-bottom: 14px;
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+      font-size: 1.1rem;
+      color: var(--text-main);
+    }
+
+    /* Inputs & Buttons */
+    label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 8px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background: #0f172a;
+      color: white;
+      font-size: 0.95rem;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    button {
+      width: 100%;
+      padding: 11px;
+      margin-top: 8px;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: var(--accent-hover);
+    }
+    .btn-green {
+      background: var(--success);
+    }
+    .btn-green:hover {
+      background: #059669;
+    }
+
+    /* Match Card Layout */
+    .match-card {
+      border-left: 4px solid var(--success);
+      margin-bottom: 14px;
+      background: #111827;
+    }
+    .match-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .match-info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: #0b0f19;
+      padding: 10px;
+      border-radius: 6px;
+      text-align: center;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+    .match-info-grid b {
+      font-size: 0.95rem;
+      color: var(--warning);
+    }
+    .room-details {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px dashed var(--success);
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+      text-align: center;
+      color: #34d399;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">🔥 FF TOURNAMENTS</div>
+    <div class="wallet-badge">🪙 <span id="userCoins">150</span> Coins</div>
+  </header>
+
+  <div class="container">
+    
+    <!-- Player Profile Details -->
+    <div class="card">
+      <h2>👤 Player Gaming Profile</h2>
+      <label>Player Username</label>
+      <input type="text" id="username" value="LegendFF">
+      <label>Free Fire UID (Game ID)</label>
+      <input type="text" id="ffId" placeholder="Enter Free Fire UID" value="482910293">
+    </div>
+
+    <!-- Wallet & Add/Withdraw Section -->
+    <div class="card">
+      <h2>💰 Wallet & Transactions</h2>
+      <label>Add Coins (Simulated Payment)</label>
+      <div class="row">
+        <input type="number" id="addCoinsInput" placeholder="Amount (e.g. 100)">
+        <button onclick="addCoins()" class="btn-green" style="margin-top:5px;">Add Coins</button>
+      </div>
+
+      <hr style="border-color: #2a3447; margin: 15px 0;">
+
+      <label>Withdraw Winning Coins</label>
+      <input type="number" id="withdrawAmount" placeholder="Coins to withdraw">
+      <input type="text" id="upiId" placeholder="Enter UPI ID (e.g. okaxis@paytm)">
+      <button onclick="requestWithdrawal()">Submit Withdrawal Request</button>
+    </div>
+
+    <!-- Tournaments List Section -->
+    <div class="card">
+      <h2>🏆 Live & Upcoming Matches</h2>
+      <div id="tournamentsList">
+        <!-- Dynamically populated matches -->
+      </div>
+    </div>
+
+    <!-- Admin Match Creator Section -->
+    <div class="card" style="border: 1px dashed var(--accent);">
+      <h2>🛠️ Admin Panel: Create Match</h2>
+      <label>Tournament Title</label>
+      <input type="text" id="newTitle" placeholder="e.g. Bermuda Full Map Solo">
+      <div class="row">
+        <div>
+          <label>Entry Fee (Coins)</label>
+          <input type="number" id="newFee" placeholder="20">
+        </div>
+        <div>
+          <label>Prize Pool (Coins)</label>
+          <input type="number" id="newPrize" placeholder="100">
+        </div>
+      </div>
+      <button onclick="createTournament()">Publish New Tournament</button>
+    </div>
+
+  </div>
+
+  <script>
+    // App State Management
+    let state = {
+      coins: 150,
+      tournaments: [
+        {
+          id: 1,
+          title: "Bermuda Solo Clash #1",
+          fee: 25,
+          prize: 120,
+          type: "SOLO",
+          joinedCount: 18,
+          maxPlayers: 48,
+          roomId: "FF-99421",
+          roomPass: "ff123"
+        },
+        {
+          id: 2,
+          title: "Kalahari Duo Championship",
+          fee: 50,
+          prize: 250,
+          type: "DUO",
+          joinedCount: 32,
+          maxPlayers: 48,
+          roomId: "Not Published Yet",
+          roomPass: "Waiting"
+        }
+      ]
+    };
+
+    // Render Function to update UI dynamically
+    function render() {
+      // Update Wallet Coins
+      document.getElementById('userCoins').innerText = state.coins;
+
+      // Update Tournaments List
+      const listContainer = document.getElementById('tournamentsList');
+      listContainer.innerHTML = "";
+
+      if(state.tournaments.length === 0) {
+        listContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted);">Koi match available nahi hai.</p>`;
+        return;
+      }
+
+      state.tournaments.forEach(match => {
+        listContainer.innerHTML += `
+          <div class="card match-card">
+            <div class="match-header">
+              <span>${match.title}</span>
+              <span style="color:var(--accent);">${match.type}</span>
+            </div>
+            <div class="match-info-grid">
+              <div>Entry Fee<br><b>🪙 ${match.fee}</b></div>
+              <div>Prize Pool<br><b>🪙 ${match.prize}</b></div>
+              <div>Slots<br><b>${match.joinedCount}/${match.maxPlayers}</b></div>
+            </div>
+            <div class="room-details">
+              Room ID: <b>${match.roomId}</b> | Pass: <b>${match.roomPass}</b>
+            </div>
+            <button onclick="joinMatch(${match.id})" class="btn-green">Join Match Now</button>
+          </div>
+        `;
+      });
+    }
+
+    // Add Coins logic
+    function addCoins() {
+      const input = document.getElementById('addCoinsInput');
+      const amount = parseInt(input.value);
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Kripya sahi coin amount dalein!");
+        return;
+      }
+
+      state.coins += amount;
+      alert(`Success! 🪙 ${amount} coins aapke wallet mein add ho gaye hain.`);
+      input.value = "";
+      render();
+    }
+
+    // Withdrawal Request logic
+    function requestWithdrawal() {
+      const amount = parseInt(document.getElementById('withdrawAmount').value);
+      const upi = document.getElementById('upiId').value.trim();
+
+      if (!upi) {
+        alert("Kripya apna UPI ID enter karein!");
+        return;
+      }
+      if (isNaN(amount) || amount <= 0) {
+        alert("Kripya valid withdrawal amount dalein!");
+        return;
+      }
+      if (amount > state.coins) {
+        alert("Error: Aapke wallet mein itne coins nahi hain!");
+        return;
+      }
+
+      state.coins -= amount;
+      alert(`Withdrawal Request Submitted Successfully!\nAmount: 🪙${amount}\nUPI: ${upi}\n24 ghante ke andar aapke account mein bhej diye jayenge.`);
+      
+      document.getElementById('withdrawAmount').value = "";
+  
